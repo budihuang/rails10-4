@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-  before_action :authenticate_user! , only: [:new, :create]
+  before_action :authenticate_user! , only: [:new, :create, :edit, :update, :destroy]
   def index
     @groups = Group.all
 
@@ -7,7 +7,7 @@ class GroupsController < ApplicationController
   def new
     @group = Group.new
   end
-def create
+def create#新增
   @group = Group.new(group_params)
     @group.user = current_user
   if @group.save
@@ -23,11 +23,17 @@ def show
 
 end
 
-def edit
+def edit#编辑
   @group = Group.find(params[:id])
+  if current_user != @group.user  #!=的意思是不等于
+      redirect_to root_path, alert: "You have no permission."
+  end
 end
-def update
+def update#修改新的内容
   @group = Group.find(params[:id])
+if current_user != @group.user
+  redirect_to root_path,alert: "you are no permission"
+end
   if @group.update(group_params)
     redirect_to groups_path, notice: "Update Success"
   else
@@ -35,8 +41,11 @@ def update
   end
 end
 
-def destroy
+def destroy#删除
   @group = Group.find(params[:id])
+  if current_user != @group.user
+     redirect_to root_path, alert: "You have no permission."
+   end
   @group.destroy
   flash[:alert] = "Group deleted"
   redirect_to groups_path
