@@ -6,6 +6,16 @@
   <table class="table table-hover">
     <thead>
       <tr>
+        <td>
+        <%= link_to group_path(group) do %>
+              <% if group.photos.present? %>
+
+               <%= image_tag(group.photos[0].avatar.thumb.url, class: "thumbnail") %>
+              <% else %>
+                <%= image_tag("http://placehold.it/200x200&text=No Pic", class: "thumbnail") %>
+              <% end %>
+            <% end %>
+          </td>
         <td>#</td>
         <td>Title</td>
         <td>Description</td>
@@ -17,7 +27,7 @@
         <tr>
           <td>1</td>
           <td><%= link_to(group.title, group_path(group)) %></td>
-        
+
           <td><%= simple_format(group.description) %></td>
             <td> <%= group.user.email %> </td>
           <td>

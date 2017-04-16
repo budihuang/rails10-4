@@ -20,36 +20,28 @@ class PostsController < ApplicationController
       render :new
     end
   end
-  def edit#编辑
+  def edit
     @group = Group.find(params[:group_id])
-    @post = Post.find(params[:id])
-    if current_user != @group.user  #!=的意思是不等于
-        redirect_to root_path, alert: "You have no permission."
-    end
-  end
-  def update#修改新的内容
-    @group = Group.find(params[:group_id])
-    @post = Post.find(params[:id])
-   if current_user != @group.user
-    redirect_to root_path,alert: "you are no permission"
+    @post = @group.posts.find(params[:id])
    end
-    if @group.update(group_params)
-      redirect_to groups_path, notice: "Update Success"
+  def update
+    @group = Group.find(params[:group_id])
+    @post = @group.posts.find(params[:id])
+
+    if @post.update(post_params)
+      redirect_to group_path(@group), notice: "文章修改成功！"
     else
       render :edit
     end
-  end
-
+   end
   def destroy#删除
 
     @group = Group.find(params[:group_id])
     @post = Post.find(params[:id])
-    if current_user != @group.user
-       redirect_to root_path, alert: "You have no permission."
-     end
-    @group.destroy
-    flash[:alert] = "Group deleted"
-    redirect_to groups_path
+
+    @post.destroy
+    flash[:alert] = "文章已删除"
+    redirect_to groups_path(@group)
 
   end
 
