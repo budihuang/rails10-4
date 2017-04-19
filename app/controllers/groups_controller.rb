@@ -6,17 +6,11 @@ before_action :authenticate_user! , only: [:new, :create, :edit, :update, :desto
   end
   def new
     @group = Group.new
-     @photo = @group.photos.build #for multi-pics
   end
 def create#新增
   @group = Group.new(group_params)
     @group.user = current_user
   if @group.save
-    if params[:photos] != nil
-       params[:photos]['avatar'].each do |a|
-         @photo = @group.photoss.create(:avatar => a)
-       end
-     end
    current_user.join!(@group)
    redirect_to groups_path
   else
@@ -26,7 +20,6 @@ end
 
 def show
   @group = Group.find(params[:id])
-   @photos = @group.photos.all
   @posts = @group.posts.recent.paginate(:page => params[:page], :per_page => 5)
 end
 
@@ -88,8 +81,8 @@ end
 private
 
 def group_params
-  params.require(:group).permit(:title, :description, :image)
 
+  params.require(:group).permit(:title, :description, :image, :image_cache, :remove_image)
 end
 
 

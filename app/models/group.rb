@@ -1,6 +1,7 @@
 class Group < ApplicationRecord
-  has_many :photos
-    accepts_nested_attributes_for :photos
+
+ mount_uploader :avatar, AvatarUploader
+
   belongs_to :user
   has_many :posts
  validates :title, presence: true

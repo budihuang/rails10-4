@@ -179,7 +179,7 @@ PLATFORMS
 DEPENDENCIES
   bootstrap-sass
   byebug
-  carrierwave
+  carrierwave (~> 1.0)
   coffee-rails (~> 4.2)
   devise
   font-awesome-rails
