@@ -1,4 +1,5 @@
 class Group < ApplicationRecord
+  mount_uploader :image, ImageUploader
   belongs_to :user
   has_many :posts
  validates :title, presence: true
