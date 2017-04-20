@@ -2,32 +2,37 @@ class PostsController < ApplicationController
   before_action :find_group
 
   def new
-    @post = @group.posts.new
-  end
+   @group = Group.find(params[:group_id])
+   @post = Post.new
+ end
 
   def edit
     @post = @group.posts.find(params[:id])
   end
 
   def create
-    @post = @group.posts.build(post_params)
+   @group = Group.find(params[:group_id])
+   @post = Post.new(post_params)
+   @post.group = @group
+   @post.user = current_user
 
-    if @post.save
-      redirect_to group_path(@group), notice: "新增文章成功！"
-    else
-      render :new
-    end
-  end
+   if @post.save
+     redirect_to group_path(@group)
+   else
+     render :new
+   end
+ end
 
   def update
-    @post = @group.posts.find(params[:id])
+   @post = @group.posts.find(params[:id])
 
-    if @post.update(post_params)
-      redirect_to group_path(@group), notice: "文章修改成功！"
-    else
-      render :edit
-    end
-  end
+   if @post.update(post_params)
+     redirect_to group_path(@group), notice: "文章修改成功！"
+   else
+     render :edit
+   end
+ end
+
 
   def destroy
     @post = @group.posts.find(params[:id])
