@@ -4,6 +4,9 @@ class PostsController < ApplicationController
   def new
    @group = Group.find(params[:group_id])
    @post = Post.new
+     if !current_user.is_member_of?(@group)
+   	 	 	redirect_to group_path(@group), alert: "加入群组成员才可以发表文章."
+  	end
  end
 
   def edit
