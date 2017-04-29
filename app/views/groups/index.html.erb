@@ -1,3 +1,4 @@
+  <div class="portfolio-all-wrap">
 <div class="col-md-12">
   <div class="group">
     <%= link_to("New group", new_group_path, class: "btn btn-primary pull-right") %>
@@ -7,18 +8,15 @@
       <tr>
 
         <td>
-
-
-1
-
-
-
-    </td>
+        现场
+        </td>
         <td>Title</td>
         <td>Description</td>
          <td>Creator </td>
       </tr>
     </thead>
+
+
     <tbody>
       <% @groups.each do |group| %>
         <tr>
@@ -45,6 +43,8 @@
         </tr>
       <% end %>
     </tbody>
+
+
   </table>
 </div>
 </div>

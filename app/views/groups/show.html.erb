@@ -18,8 +18,10 @@
    <% end %>
   </div>
 
+
   <h2><%= @group.title %></h2>
   <p><%= @group.description %></p>
+
 
   <span class="pull-right">
    <table class="table">
@@ -44,6 +46,7 @@
      <%= will_paginate @posts %>
    </div>
 </span>
+
   <div class="col-md-12">
    <% if @group.image.present? %>
      <%= image_tag(@group.image.medium.url, class: "thumbnail") %>
