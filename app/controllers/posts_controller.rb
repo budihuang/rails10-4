@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  before_action :authenticate_user! , only: [:new, :create, :edit, :update, :destory, :join , :quit, :image]
   before_action :find_group
 
   def new
@@ -51,6 +52,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:content)
+    params.require(:post).permit(:note)
   end
 end
